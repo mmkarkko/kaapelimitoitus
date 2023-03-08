@@ -8,8 +8,8 @@ import javafx.fxml.FXMLLoader;
 
 
 /**
- * @author miiaa
- * @version 20.2.2023
+ * @author Miia Arkko
+ * @version 25.2.2023
  *
  */
 public class KaapelimitoitusMain extends Application {
