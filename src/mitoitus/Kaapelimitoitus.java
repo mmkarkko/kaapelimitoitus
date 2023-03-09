@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 public class Kaapelimitoitus {
     
-    private static char      asennustapa        = 'A';
+    private static char      asennustapa = 'A';
     private static double korjausKerroin = 0.9;
     private static int            sulake =  10;
 
@@ -23,12 +23,79 @@ public class Kaapelimitoitus {
     /**
      * Hakee sarakkeen, jolta tietoja halutaan.
      * Muuttaa syötetyn korjauskertoimen arvon sarakkeen numeroksi.
-     * @return korjauskertoimen arvoa vastaavan sarakkeen numero
+     * @return korjauskertoimen arvoa vastaavan sarakkeen numero. 666, jos meni pieleen
      */
-    private static int haeSarake() {
-        double d = korjausKerroin;
-        int sarake = (int)d;
-        return sarake;
+    public static int haeSarake() {
+        if (korjausKerroin == 1.1) return 0;
+        if (korjausKerroin == 1.0) return 1;
+        if (korjausKerroin == 0.9) return 2;
+        if (korjausKerroin == 0.8) return 3;
+        if (korjausKerroin == 0.7) return 4;
+        if (korjausKerroin == 0.6) return 5;
+        return 666;
+    }
+    
+    
+    /**
+     * Testataan sarakkeen hakua
+     * @param kerroin testiä varten
+     * @return korjauskertoimen arvoa vastaavan sarakkeen numero. 666, jos meni pieleen
+     * @example
+     * <pre name="test">
+     * #TOLERANCE=0.01;
+     *  haeSarake(0)   ~~~ 666;
+     *  haeSarake(1)   ~~~ 1;
+     *  haeSarake(1.1) ~~~ 0;
+     *  haeSarake(0.05)~~~ 666;
+     *  haeSarake(-1.0)~~~ 666;
+     *  haeSarake(0.5) ~~~ 666;
+     *  haeSarake(0.9) ~~~ 2;
+     *  haeSarake(1.0) ~~~ 1;
+     *  haeSarake(0.8) ~~~ 3;
+     *  haeSarake(0.7) ~~~ 4;
+     *  haeSarake(0.6) ~~~ 5;
+     * </pre>
+     */
+    @SuppressWarnings("unused")
+    public static int haeSarake(double kerroin) {
+        if (kerroin == 1.1) return 0;
+        if (kerroin == 1.0) return 1;
+        if (kerroin == 0.9) return 2;
+        if (kerroin == 0.8) return 3;
+        if (kerroin == 0.7) return 4;
+        if (kerroin == 0.6) return 5;
+        return 666;
+    }
+    
+    
+    /**
+     * Hakee moniulotteisesta taulukosta tietyn alkion sisällön
+     * @param mat matriisi, josta alkion arvo haetaan
+     * @param rivi jolta arvo halutaan
+     * @param sarake jolta arvo halutaan
+     * @return halutun alkion sisältämä arvo
+     * @example
+     * <pre name="test">
+     *  String[][] t  = {{"1","2","3","4"},{"2","0","6","1"}};
+     *  String[][] t2 = {{"-2", "koira", "4/10", ""},{"!", "2203-34", "1.5", "-"},{"V", "352", " ", "25/16"}};
+     *  haeArvo(t, 2, 3)    === "6";
+     *  haeArvo(t, 0, 0)    === "0";
+     *  haeArvo(null, 2,4)  === "Taulukko ei kelpaa";
+     *  haeArvo(t2, 3, 4)   === "25/16";
+     *  haeArvo(t2, 1, 1)   === "-2";
+     *  haeArvo(t2, 2, 4)   === "-";
+     *  haeArvo(t2, 3, 3)   === " ";
+     *  haeArvo(t2, 1, 4)   === "";
+     *  haeArvo(t2, 9, 9)   === "Ei löydy";
+     *  haeArvo(t2, -1,-1)  === "Rivi tai sarake ei kelpaa";
+     * </pre>
+     */
+    public static String haeArvo(String[][] mat, int rivi, int sarake) {
+        if (mat == null) return "Taulukko ei kelpaa";
+        if (mat.length < rivi) return "Ei löydy";
+        if (rivi < 0 || sarake < 0) return "Rivi tai sarake ei kelpaa";
+       
+        return mat[rivi][sarake];
     }
 
 
@@ -92,44 +159,15 @@ public class Kaapelimitoitus {
         String arvo = haeArvo(taulukkoA, rivi, sarake);
         
         System.out.println();
+        System.out.println("Sarake on " + sarake);
+        System.out.println("Rivi on " + rivi);
+        System.out.println();
         System.out.println("Valittu asennustapa: " + asennustapa);
         System.out.println("Valittu sulake on " + sulake);
         System.out.println("Valittu korjauskerroin on " + korjausKerroin);
         System.out.println();
         System.out.println("Haettu arvo riviltä " + rivi + ", sarakkeesta " + sarake + " taulukosta oli " + arvo);
     
-    }
-
-
-    /**
-     * Hakee moniulotteisesta taulukosta tietyn alkion sisällön
-     * @param mat matriisi, josta alkion arvo haetaan
-     * @param rivi jolta arvo halutaan
-     * @param sarake jolta arvo halutaan
-     * @return halutun alkion sisältämä arvo
-     * @example
-     * <pre name="test">
-     *  String[][] t  = {{"1","2","3","4"},{"2","0","6","1"}};
-     *  String[][] t2 = {{"-2", "koira", "4/10", ""},{"!", "2203-34", "1.5", "-"},{"V", "352", " ", "25/16"}};
-     *  haeArvo(t, 2, 3)    === "6";
-     *  haeArvo(t, 0, 0)    === "0";
-     *  haeArvo(null, 2,4)  === "Taulukko ei kelpaa";
-     *  haeArvo(t2, 3, 4)   === "25/16";
-     *  haeArvo(t2, 1, 1)   === "-2";
-     *  haeArvo(t2, 2, 4)   === "-";
-     *  haeArvo(t2, 3, 3)   === " ";
-     *  haeArvo(t2, 1, 4)   === "";
-     *  haeArvo(t2, 9, 9)   === "Ei löydy";
-     *  haeArvo(t2, -1,-1)  === "Rivi tai sarake ei kelpaa";
-     * </pre>
-     */
-    public static String haeArvo(String[][] mat, int rivi, int sarake) {
-        String oletus = "oletus";
-        if (mat == null) return "Taulukko ei kelpaa";
-        if (mat.length < rivi) return "Ei löydy";
-        if (rivi < 0 || sarake < 0) return "Rivi tai sarake ei kelpaa";
-        
-        return oletus;
     }
 
 }
