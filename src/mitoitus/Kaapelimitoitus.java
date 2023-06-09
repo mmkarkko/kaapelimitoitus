@@ -78,14 +78,14 @@ public class Kaapelimitoitus {
      * <pre name="test">
      *  String[][] t  = {{"1","2","3","4"},{"2","0","6","1"}};
      *  String[][] t2 = {{"-2", "koira", "4/10", ""},{"!", "2203-34", "1.5", "-"},{"V", "352", " ", "25/16"}};
-     *  haeArvo(t, 2, 3)    === "6";
-     *  haeArvo(t, 0, 0)    === "0";
+     *  haeArvo(t, 1, 3)    === "1";
+     *  haeArvo(t, 0, 0)    === "1";
      *  haeArvo(null, 2,4)  === "Taulukko ei kelpaa";
-     *  haeArvo(t2, 3, 4)   === "25/16";
-     *  haeArvo(t2, 1, 1)   === "-2";
-     *  haeArvo(t2, 2, 4)   === "-";
-     *  haeArvo(t2, 3, 3)   === " ";
-     *  haeArvo(t2, 1, 4)   === "";
+     *  haeArvo(t2, 2, 3)   === "25/16";
+     *  haeArvo(t2, 0, 0)   === "-2";
+     *  haeArvo(t2, 1, 3)   === "-";
+     *  haeArvo(t2, 2, 2)   === " ";
+     *  haeArvo(t2, 0, 3)   === "";
      *  haeArvo(t2, 9, 9)   === "Ei löydy";
      *  haeArvo(t2, -1,-1)  === "Rivi tai sarake ei kelpaa";
      * </pre>

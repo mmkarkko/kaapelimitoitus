@@ -27,7 +27,7 @@ public class KaapelimitoitusGUIController implements Initializable {
 
     
     @FXML void handleLaske(ActionEvent event) {
-       //
+       laske();
     }
 
     
@@ -40,6 +40,16 @@ public class KaapelimitoitusGUIController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         // TODO Auto-generated method stub
         
+    }
+    
+    
+    // ------------------------------------------------------------------
+    
+    private int tulos;
+    
+    private void laske() {
+    //    
+    
     }
       
 }
