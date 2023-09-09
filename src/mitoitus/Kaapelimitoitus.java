@@ -13,7 +13,11 @@ import java.util.Scanner;
  * @author Miia Arkko
  * @version 9.3.2023
  * @version 9.6.2023
- *  Muutettu toimimaan käyttäjän syötteeltä
+ *   Muutettu toimimaan käyttäjän syötteeltä
+ * @version 9.9.2023
+ *   Osaa hakea oikean poikkipinta-alan A-taulukosta käyttäjän 
+ *   valitseman sulakkeen ja korjauskertoimen mukaan.
+ *  
  *
  */
 public class Kaapelimitoitus {

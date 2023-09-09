@@ -35,7 +35,15 @@ public class KaapelimitoitusGUIController implements Initializable {
         //
     }
 
+    @FXML void handleSulake() {
+        //
+    }
 
+    @FXML void handleKorjausKerroin() {
+        //
+    }
+    
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         // TODO Auto-generated method stub
@@ -51,13 +59,14 @@ public class KaapelimitoitusGUIController implements Initializable {
     private int sulake;
     private int rivi;
     private int sarake;
-    private String[][] taulukko;
+    private String[][] taulukko;   
     
     
     private void laske() {
         
         String teksti1;
         String teksti2;
+
         
         asennustapa = valintaAsennusTapa.getSelectedText();
         teksti1 = valintaKorjausKerroin.getSelectedText();

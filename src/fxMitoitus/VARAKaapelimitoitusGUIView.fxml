@@ -130,12 +130,12 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <ComboBoxChooser fx:id="valintaSulake" minWidth="-Infinity" onKeyReleased="#handleSulake" prefWidth="80.0" rivit="6&#10;10&#10;13&#10;16&#10;20&#10;" GridPane.columnIndex="1">
+                  <ComboBoxChooser fx:id="valintaSulake" minWidth="-Infinity" prefWidth="80.0" rivit="6&#10;" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </ComboBoxChooser>
-                  <ComboBoxChooser fx:id="valintaKorjausKerroin" minHeight="-Infinity" onKeyReleased="#handleKorjausKerroin" prefWidth="80.0" rivit="1.1&#10;1.0&#10;0.9&#10;0.8&#10;0.7&#10;0.6&#10;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ComboBoxChooser fx:id="valintaKorjausKerroin" minHeight="-Infinity" prefWidth="80.0" rivit="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
