@@ -16,7 +16,8 @@ import java.util.Scanner;
  *   Muutettu toimimaan käyttäjän syötteeltä
  * @Version 9.9.2023
  *   Lisätty asennustapa C
- *  
+ * @Version 10.9.2023
+ *   Osaa hakea taulukon käyttäjän syötteen mukaan
  *
  */
 public class Kaapelimitoitus {
@@ -132,9 +133,9 @@ public class Kaapelimitoitus {
     
     
     /**
-     * Hakee valitun taulukon
+     * Hakee taulukon
      * @param kirjain asennustapa, jonka mukaan palautettava taulukko valitaan
-     * @return valittu taulukko
+     * @return valittu taulukko, josta tietoja halutaan
      */
     public static String[][] haeTaulukko(String kirjain) {
         
@@ -192,8 +193,6 @@ public class Kaapelimitoitus {
         default:
             break;
         }
-        
-        //System.out.println(at);
         return palautettavaTaulukko;
     }
   
@@ -222,42 +221,32 @@ public class Kaapelimitoitus {
         String[][] valittuTaulukko = null;
         
         String[] asennustavat = {"A", "C", "D", "E"};
-
-        String valittuAsennustapa;
-        double valittuKK;
-        int valittuSulake;
         
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Valitse asennustapa: A, B C tai D");
-            valittuAsennustapa = sc.nextLine();
+            asennustapa = sc.nextLine();
             for (int i = 0; i <= asennustavat.length; i++) {
-                if (asennustavat[i].equalsIgnoreCase(valittuAsennustapa)) {
-                    valittuTaulukko = haeTaulukko(valittuAsennustapa);
+                if (asennustavat[i].equalsIgnoreCase(asennustapa)) {
+                    valittuTaulukko = haeTaulukko(asennustapa);
                     break;
                 }
             }
             
             System.out.println("Syötä korjauskerroin: ");
-            valittuKK = sc.nextDouble(); 
+            korjausKerroin = sc.nextDouble(); 
             
             System.out.println("Syötä sulakkeen koko: ");
-            valittuSulake = sc.nextInt(); 
+            sulake = sc.nextInt(); 
             
-            System.out.println("Valittu asennustapa on: " + valittuAsennustapa.toUpperCase());
-            System.out.println("Valittu korjauskerroin on: " + valittuKK);
-            System.out.println("Valittu sulake on: " + valittuSulake);
+            System.out.println("--------------------------------------------");
             
+            System.out.println("Valittu asennustapa on: " + asennustapa.toUpperCase());
+            System.out.println("Valittu korjauskerroin on: " + korjausKerroin);
+            System.out.println("Valittu sulake on: " + sulake);            
         }
         
         System.out.println("--------------------------------------------");
-        
-        //asennustapa = valittuAsennustapa;
-        korjausKerroin = valittuKK; //TODO: tarvitaanko näitä kahta mihinkään?
-        sulake = valittuSulake;
-        
-        
-        
-        
+            
         int rivi = haeRivi(sulake);
         if (rivi == 666) System.out.println("Syötetty virheellinen sulakkeen arvo");
         int sarake = haeSarake(korjausKerroin);
@@ -266,20 +255,6 @@ public class Kaapelimitoitus {
    
         System.out.println("Arvo annetuilla parametreillä on: " + haettuArvo);
         
-//        int sarake = haeSarake();
-//        int rivi   = haeRivi(sulake);
-//        String arvo = haeArvo(taulukkoA, rivi, sarake);
-//        
-//        System.out.println();
-//        System.out.println("Sarake on " + sarake);
-//        System.out.println("Rivi on " + rivi);
-//        System.out.println();
-//        System.out.println("Valittu asennustapa: " + asennustapa);
-//        System.out.println("Valittu sulake on " + sulake);
-//        System.out.println("Valittu korjauskerroin on " + korjausKerroin);
-//        System.out.println();
-//        System.out.println("Haettu arvo riviltä " + rivi + ", sarakkeesta " + sarake + " taulukosta oli " + arvo);
-    
     }
 
 }

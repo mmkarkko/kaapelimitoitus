@@ -95,7 +95,7 @@ public class KaapelimitoitusGUIController implements Initializable {
      * @param arvo
      */
     private void laitaTulos(Label tekstikentta, String arvo) {
-        tekstikentta.setText(arvo);
+        tekstikentta.setText(arvo + " mm2");
     }
       
 }
