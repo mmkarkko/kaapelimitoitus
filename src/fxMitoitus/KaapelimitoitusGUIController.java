@@ -13,6 +13,9 @@ import javafx.fxml.Initializable;
 /**
  * @author Miia Arkko
  * @version 8.3.2023
+ * @version 9.9.2023
+ *   Osaa hakea oikean poikkipinta-alan A-taulukosta käyttäjän 
+ *   valitseman sulakkeen ja korjauskertoimen mukaan.
  *
  */
 public class KaapelimitoitusGUIController implements Initializable {

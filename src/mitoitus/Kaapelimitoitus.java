@@ -14,15 +14,14 @@ import java.util.Scanner;
  * @version 9.3.2023
  * @version 9.6.2023
  *   Muutettu toimimaan käyttäjän syötteeltä
- * @version 9.9.2023
- *   Osaa hakea oikean poikkipinta-alan A-taulukosta käyttäjän 
- *   valitseman sulakkeen ja korjauskertoimen mukaan.
+ * @Version 9.9.2023
+ *   Lisätty asennustapa C
  *  
  *
  */
 public class Kaapelimitoitus {
     
-//    private static String      asennustapa;
+    private static String    asennustapa;
     private static double korjausKerroin;
     private static int            sulake;
 
@@ -63,7 +62,6 @@ public class Kaapelimitoitus {
      *  haeSarake(0.6) ~~~ 5;
      * </pre>
      */
-    @SuppressWarnings("unused")
     public static int haeSarake(double kerroin) {
         if (kerroin == 1.1) return 0;
         if (kerroin == 1.0) return 1;
@@ -135,13 +133,15 @@ public class Kaapelimitoitus {
     
     /**
      * Hakee valitun taulukon
-     * @param at asennustapa, jonka mukaan palautettava taulukko valitaan
+     * @param kirjain asennustapa, jonka mukaan palautettava taulukko valitaan
      * @return valittu taulukko
      */
-    public static String[][] haeTaulukko(String at) {
+    public static String[][] haeTaulukko(String kirjain) {
         
+        String kirjainIsona = kirjain.toUpperCase();
+        String[][] palautettavaTaulukko = null;
         String[][] taulukkoA = {
-                {  "1.5",  "1.5",     "1.5",     "1.5",     "1.5",     "1.5"}, // rivi 1 --> sulake  6
+                {  "1.5",  "1.5",     "1.5",     "1.5",     "1.5",      "1.5"}, // rivi 1 --> sulake  6
                 {  "1.5",   "1.5", "2.5/1.5", "2.5/1.5",   "4/2.5",   "4/2.5"}, // rivi 2 --> sulake 10
                 {  "1.5",   "1.5",     "2.5",     "2.5",     "2.5",       "4"}, // rivi 3 --> sulake 13^4
                 {  "2.5",   "2.5",   "4/2.5",       "4",     "6/4",       "6"}, // rivi 4 --> sulake 16
@@ -159,8 +159,42 @@ public class Kaapelimitoitus {
                 {  "150",   "185",     "240",     "300",       "-",       "-"}, // rivi 17 --> sulake 200
                 {  "240",   "240",     "300",       "-",       "-",       "-"}, // rivi 18 --> sulake 250
         };
+        
+        String[][] taulukkoC = {
+                {    "1.5",    "1.5",      "1.5",    "1.5",      "1.5",      "1.5"}, // rivi 1 --> sulake  6
+                {    "1.5",    "1.5",      "1.5",    "1.5",  "2.5/1.5",  "2.5/1.5"}, // rivi 2 --> sulake 10
+                {    "1.5",    "1.5",      "1.5",    "1.5",      "2.5",      "2.5"}, // rivi 3 --> sulake 13^4
+                {    "1.5",    "1.5",  "2.5/1.5",    "2.5",    "4/2.5",        "4"}, // rivi 4 --> sulake 16
+                {"2.5/1.5",    "2.5",      "2.5",  "4/2.5",        "4",      "6/4"}, // rivi 5 --> sulake 20               
+                {  "4/2.5",  "4/2.5",        "4",    "6/4",        "6",     "10/6"}, // rivi 7  --> sulake 25
+                {      "4",    "6/4",        "6",   "10/6",       "10",       "10"}, // rivi 8  --> sulake 32
+                {    "6/4",      "6",     "10/6",     "10",       "10",    "16/10"}, // rivi 9  --> sulake 35
+                {      "6",   "10/6",       "10",     "10",    "16/10",       "16"}, // rivi 10 --> sulake 40
+                {     "10",     "10",    "16/10",     "16",       "16",       "25"}, // rivi 11 --> sulake 50 
+                {  "16/10",     "16",       "16",  "25/16",       "25",       "35"}, // rivi 12 --> sulake 63
+                {     "16",  "25/16",       "25",  "35/25",       "35",       "50"}, // rivi 13 --> sulake 80
+                {     "25",  "35/25",       "35",  "50/35",    "70/50",       "70"}, // rivi 14 --> sulake 100
+                {     "35",  "50/35",    "70/50",     "70",    "95/70",       "95"}, // rivi 15 --> sulake 125
+                {     "70",     "70",       "95",     "95",      "120",      "150"}, // rivi 16 --> sulake 160  
+                {     "95",     "95",      "120",    "150",      "185",      "240"}, // rivi 17 --> sulake 200
+                {    "120",    "150",      "150",    "185",      "240",      "300"}, // rivi 18 --> sulake 250
+                {    "150",    "185",      "240",    "300",        "-",        "-"}, // rivi 19 --> sulake 315
+                {    "240",    "300",      "300",      "-",        "-",      "300"}, // rivi 18 --> sulake 400
+        };
+        
+        switch (kirjainIsona) {
+            case "A":
+                palautettavaTaulukko = taulukkoA;
+                break;
+            case "C":
+                palautettavaTaulukko = taulukkoC;
+                break;
+        default:
+            break;
+        }
+        
         //System.out.println(at);
-        return taulukkoA;
+        return palautettavaTaulukko;
     }
   
     
@@ -183,29 +217,12 @@ public class Kaapelimitoitus {
      * Ohjelma kaapelimitoituksen testaamiseksi
      * @param args ei käytössä
      */
-    public static void main(String[] args) {     
+    public static void main(String[] args) {  
         
-        String[][] taulukkoA = {
-                {  "1.5",  "1.52",     "1.5",     "1.5",     "1.5",     "1.5"}, // rivi 1 --> sulake  6
-                {  "1.5",   "1.5", "2.5/1.5", "2.5/1.5",   "4/2.5",   "4/2.5"}, // rivi 2 --> sulake 10
-                {  "1.5",   "1.5",     "2.5",     "2.5",     "2.5",       "4"}, // rivi 3 --> sulake 13^4
-                {  "2.5",   "2.5",   "4/2.5",       "4",     "6/4",       "6"}, // rivi 4 --> sulake 16
-                {"4/2.5",     "4",     "6/4",       "6",    "10/6",      "10"}, // rivi 5 --> sulake 20
-                {  "6/4",     "6",    "10/6",      "10",      "10",      "16"}, // rivi 7  --> sulake 25
-                { "10/6",    "10",      "10",   "16/10",      "16",   "25/16"}, // rivi 8  --> sulake 32
-                {   "10",    "10",   "16/10",      "16",   "25/16",      "25"}, // rivi 9  --> sulake 35
-                {   "10", "16/10",      "16",      "16",      "25",   "35/25"}, // rivi 10 --> sulake 40
-                {   "16",    "16",      "25",      "25",   "35/25",   "50/35"}, // rivi 11 --> sulake 50
-                {   "25",    "25",   "35/25",      "35",      "50",   "70/50"}, // rivi 12 --> sulake 63
-                {   "35",    "35",      "50",   "70/50",      "70",      "95"}, // rivi 13 --> sulake 80
-                {   "50", "70/50",      "70",   "95/70",      "95", "150/120"}, // rivi 14 --> sulake 100
-                {   "70", "95/70",      "95",  "120/95", "150/120",     "185"}, // rivi 15 --> sulake 125
-                {  "120",   "120",     "150",     "185",     "240",     "300"}, // rivi 16 --> sulake 160
-                {  "150",   "185",     "240",     "300",       "-",       "-"}, // rivi 17 --> sulake 200
-                {  "240",   "240",     "300",       "-",       "-",       "-"}, // rivi 18 --> sulake 250
-        };
+        String[][] valittuTaulukko = null;
         
-        tulosta(System.out, taulukkoA);
+        String[] asennustavat = {"A", "C", "D", "E"};
+
         String valittuAsennustapa;
         double valittuKK;
         int valittuSulake;
@@ -213,6 +230,12 @@ public class Kaapelimitoitus {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Valitse asennustapa: A, B C tai D");
             valittuAsennustapa = sc.nextLine();
+            for (int i = 0; i <= asennustavat.length; i++) {
+                if (asennustavat[i].equalsIgnoreCase(valittuAsennustapa)) {
+                    valittuTaulukko = haeTaulukko(valittuAsennustapa);
+                    break;
+                }
+            }
             
             System.out.println("Syötä korjauskerroin: ");
             valittuKK = sc.nextDouble(); 
@@ -229,14 +252,17 @@ public class Kaapelimitoitus {
         System.out.println("--------------------------------------------");
         
         //asennustapa = valittuAsennustapa;
-        korjausKerroin = valittuKK;
+        korjausKerroin = valittuKK; //TODO: tarvitaanko näitä kahta mihinkään?
         sulake = valittuSulake;
+        
+        
+        
         
         int rivi = haeRivi(sulake);
         if (rivi == 666) System.out.println("Syötetty virheellinen sulakkeen arvo");
         int sarake = haeSarake(korjausKerroin);
         if (sarake == 666) System.out.println("Syötetty virheellinen korjauskerroin");
-        String haettuArvo = haeArvo(taulukkoA, rivi, sarake);
+        String haettuArvo = haeArvo(valittuTaulukko, rivi, sarake);
    
         System.out.println("Arvo annetuilla parametreillä on: " + haettuArvo);
         
