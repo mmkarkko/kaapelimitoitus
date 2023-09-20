@@ -22,7 +22,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Tiedosto">
             <items>
-              <MenuItem mnemonicParsing="false" text="Sulje">
+              <MenuItem mnemonicParsing="false" onAction="#handleLopeta" text="Sulje">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
@@ -30,7 +30,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Apua">
             <items>
-              <MenuItem mnemonicParsing="false" text="Tietoja" />
+              <MenuItem mnemonicParsing="false" onAction="#handleTietoja" text="Tietoja" />
             </items>
           </Menu>
         </menus>

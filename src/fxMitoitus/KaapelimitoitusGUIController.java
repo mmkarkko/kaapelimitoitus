@@ -4,7 +4,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.ComboBoxChooser;
+import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.ohj2.Mjonot;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import mitoitus.Kaapelimitoitus;
@@ -16,6 +19,8 @@ import javafx.fxml.Initializable;
  * @version 9.9.2023
  *   Osaa hakea oikean poikkipinta-alan A-taulukosta käyttäjän 
  *   valitseman sulakkeen ja korjauskertoimen mukaan.
+ * @version 20.9.2023
+ *   Sulkee sovelluksen painikkeesta ja avaa 'tietoja' ikkunan
  *
  */
 public class KaapelimitoitusGUIController implements Initializable {
@@ -44,6 +49,18 @@ public class KaapelimitoitusGUIController implements Initializable {
 
     @FXML void handleKorjausKerroin() {
         //
+    }
+    
+    @FXML private void handleTietoja() {
+        ModalController.showModal(TietojaGUIController.class.getResource("TietojaGUIView.fxml"), "Tietoja", null, "");
+    }
+    
+    @FXML private void handleLopeta() {
+        boolean vastaus = Dialogs.showQuestionDialog("Lopetus?", "Haluatko varmasti sulkea ohjelman?", "Kyllä", "Peruuta");
+        if (vastaus) {
+            Platform.exit();
+        }
+        else return;
     }
     
     
